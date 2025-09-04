@@ -6,7 +6,7 @@
     --button-bg: #f0f0f0;
     --button-text: #333;
     --button-hover-bg: #e0e0e0;
-    --header-bg: #fff; /* Alterado para branco */
+    --header-bg: #fff;
 }
 
 [data-theme="dark"] {
@@ -20,6 +20,14 @@
     --header-bg: #1e1e1e;
 }
 
+/* Reset para melhor controle do layout */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: 100%; /* Previne ajuste de texto automático no iOS */
+}
+
 body {
     font-family: 'Times New Roman', serif;
     line-height: 1.4;
@@ -30,47 +38,50 @@ body {
     background-color: var(--bg-color);
     font-size: 11pt;
     transition: background-color 0.3s, color 0.3s;
-    box-sizing: border-box;
-}
-
-/* Garantir que todos os elementos respeitem o box-sizing */
-*, *::before, *::after {
-    box-sizing: inherit;
+    overflow-wrap: break-word; /* Quebra palavras longas */
+    word-wrap: break-word; /* Compatibilidade com navegadores mais antigos */
 }
 
 .header-container {
     display: flex;
+    flex-wrap: wrap; /* Permite quebra em múltiplas linhas */
     justify-content: space-between;
     margin-bottom: 1em;
     padding: 1em;
     background-color: var(--header-bg);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    gap: 15px; /* Espaço entre os elementos */
 }
 
 .left-header {
-    width: 50%;
+    flex: 1;
+    min-width: 0; /* Permite que o conteúdo encolha */
 }
 
 .right-header {
-    width: 50%;
+    flex: 1;
     text-align: right;
+    min-width: 0; /* Permite que o conteúdo encolha */
 }
 
 .name {
     font-size: 16pt;
     font-weight: bold;
     margin-bottom: 0.4em;
+    word-break: break-word; /* Quebra palavras longas */
 }
 
 .contact-info {
     color: var(--link-color);
     margin-bottom: 0.5em;
+    word-break: break-word; /* Quebra palavras longas */
 }
 
 a {
     color: var(--link-color);
     text-decoration: none;
+    word-break: break-word; /* Quebra URLs longas */
 }
 
 a:hover {
@@ -82,18 +93,20 @@ a:hover {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
+    flex-wrap: wrap; /* Permite quebra dos botões */
 }
 
 .theme-toggle-btn, .language-toggle-btn {
     background-color: var(--button-bg);
     color: var(--button-text);
     border: 1px solid var(--section-border-color);
-    padding: 0.3em 0.6em;
+    padding: 0.5em 0.8em;
     border-radius: 4px;
     cursor: pointer;
     font-family: inherit;
     font-size: 10pt;
     transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap; /* Impede quebra de texto dentro dos botões */
 }
 
 .theme-toggle-btn:hover, .language-toggle-btn:hover {
@@ -111,6 +124,7 @@ a:hover {
     border-bottom: 1px solid var(--section-border-color);
     padding-bottom: 0.2em;
     margin-bottom: 0.6em;
+    word-break: break-word; /* Quebra palavras longas */
 }
 
 .entry {
@@ -119,22 +133,26 @@ a:hover {
 
 .entry-header {
     display: flex;
+    flex-wrap: wrap; /* Permite quebra em múltiplas linhas */
     justify-content: space-between;
     font-weight: bold;
-    flex-wrap: wrap;
+    gap: 10px; /* Espaço entre título e data */
 }
 
 .entry-title {
     font-weight: bold;
+    word-break: break-word; /* Quebra palavras longas */
 }
 
 .entry-details {
     font-style: italic;
     margin-bottom: 0.2em;
+    word-break: break-word; /* Quebra palavras longas */
 }
 
 .entry-date {
     font-weight: normal;
+    white-space: nowrap; /* Mantém a data em uma linha */
 }
 
 ul {
@@ -144,7 +162,8 @@ ul {
 }
 
 li {
-    margin-bottom: 0.2em;
+    margin-bottom: 0.5em;
+    word-break: break-word; /* Quebra palavras longas */
 }
 
 .skills-list {
@@ -154,23 +173,32 @@ li {
 .project-tech {
     font-style: italic;
     font-weight: normal;
+    display: block; /* Força quebra de linha */
+    margin-top: 0.3em;
 }
 
 /* Media Queries para Responsividade */
+@media screen and (max-width: 900px) {
+    body {
+        padding: 0.8rem;
+    }
+}
+
 @media screen and (max-width: 768px) {
     body {
-        padding: 0.5rem;
+        padding: 0.6rem;
         font-size: 10pt;
     }
     
     .header-container {
         flex-direction: column;
-        padding: 0.5rem;
+        padding: 0.8rem;
+        text-align: center;
     }
     
     .left-header, .right-header {
         width: 100%;
-        text-align: left;
+        text-align: center;
     }
     
     .right-header {
@@ -178,12 +206,13 @@ li {
     }
     
     .theme-toggle-container {
-        justify-content: flex-start;
+        justify-content: center;
         margin-top: 1rem;
     }
     
     .entry-header {
         flex-direction: column;
+        text-align: center;
     }
     
     .entry-date {
@@ -193,49 +222,99 @@ li {
     
     .section-title {
         font-size: 11pt;
+        text-align: center;
     }
     
     .name {
         font-size: 14pt;
     }
+    
+    .project-tech {
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 480px) {
+    body {
+        padding: 0.4rem;
+        font-size: 9.5pt;
+    }
+    
+    .header-container {
+        padding: 0.6rem;
+        border-radius: 4px;
+    }
+    
+    .theme-toggle-container {
+        flex-direction: row;
+        gap: 8px;
+    }
+    
+    .theme-toggle-btn, .language-toggle-btn {
+        flex: 1;
+        min-width: 120px;
+        padding: 0.6em 0.5em;
+        font-size: 9.5pt;
+    }
+    
+    .entry-header {
+        gap: 5px;
+    }
+    
+    .entry-date {
+        white-space: normal; /* Permite quebra da data em mobile */
+        font-size: 0.85em;
+    }
+    
+    ul {
+        padding-left: 1em;
+    }
+    
+    li {
+        margin-bottom: 0.7em;
+    }
+}
+
+@media screen and (max-width: 360px) {
     body {
         padding: 0.3rem;
         font-size: 9pt;
     }
     
+    .header-container {
+        padding: 0.5rem;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    
     .theme-toggle-container {
         flex-direction: column;
-        gap: 5px;
     }
     
     .theme-toggle-btn, .language-toggle-btn {
         width: 100%;
-        text-align: center;
+        min-width: auto;
     }
     
-    .project-tech {
-        display: block;
-        margin-top: 0.3rem;
+    .name {
+        font-size: 13pt;
+    }
+    
+    .section-title {
+        font-size: 10.5pt;
     }
 }
 
-/* Impedir quebra de layout em mobile */
-@media screen and (max-width: 400px) {
-    .header-container {
-        border-radius: 0;
-        box-shadow: none;
-        margin-bottom: 0.5em;
-    }
-    
-    .left-header, .right-header {
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-    }
-    
-    .contact-info {
-        font-size: 0.9em;
-    }
+/* Garantir que textos longos quebrem adequadamente */
+.break-word {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Melhorar a legibilidade em dispositivos móveis */
+.mobile-optimized-text {
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    text-align: justify;
 }

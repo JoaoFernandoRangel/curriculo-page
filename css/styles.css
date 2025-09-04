@@ -6,7 +6,7 @@
     --button-bg: #f0f0f0;
     --button-text: #333;
     --button-hover-bg: #e0e0e0;
-    --header-bg: #f8f8f8;
+    --header-bg: #fff; /* Alterado para branco */
 }
 
 [data-theme="dark"] {
@@ -30,6 +30,12 @@ body {
     background-color: var(--bg-color);
     font-size: 11pt;
     transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box;
+}
+
+/* Garantir que todos os elementos respeitem o box-sizing */
+*, *::before, *::after {
+    box-sizing: inherit;
 }
 
 .header-container {
@@ -115,6 +121,7 @@ a:hover {
     display: flex;
     justify-content: space-between;
     font-weight: bold;
+    flex-wrap: wrap;
 }
 
 .entry-title {
@@ -147,4 +154,88 @@ li {
 .project-tech {
     font-style: italic;
     font-weight: normal;
+}
+
+/* Media Queries para Responsividade */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 0.5rem;
+        font-size: 10pt;
+    }
+    
+    .header-container {
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+    
+    .left-header, .right-header {
+        width: 100%;
+        text-align: left;
+    }
+    
+    .right-header {
+        margin-top: 1rem;
+    }
+    
+    .theme-toggle-container {
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
+    
+    .entry-header {
+        flex-direction: column;
+    }
+    
+    .entry-date {
+        margin-top: 0.3rem;
+        font-size: 0.9em;
+    }
+    
+    .section-title {
+        font-size: 11pt;
+    }
+    
+    .name {
+        font-size: 14pt;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 0.3rem;
+        font-size: 9pt;
+    }
+    
+    .theme-toggle-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .theme-toggle-btn, .language-toggle-btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .project-tech {
+        display: block;
+        margin-top: 0.3rem;
+    }
+}
+
+/* Impedir quebra de layout em mobile */
+@media screen and (max-width: 400px) {
+    .header-container {
+        border-radius: 0;
+        box-shadow: none;
+        margin-bottom: 0.5em;
+    }
+    
+    .left-header, .right-header {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+    
+    .contact-info {
+        font-size: 0.9em;
+    }
 }
